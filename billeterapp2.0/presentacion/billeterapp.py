@@ -24,7 +24,7 @@ def login():
             flash("Logged in successfully as {}.".format(user.username))
             return redirect(request.args.get('next') or url_for('index'))
         flash('Incorrect username or password.')
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, title="Login")
 
 
 @app.route("/logout")
@@ -44,7 +44,7 @@ def signup():
         u.insert_one(user)
         flash('Welcome, {}! Please login.'.format(user["username"]))
         return redirect(url_for('.login'))
-    return render_template("signup.html", form=form)
+    return render_template("signup.html", form=form, title="Signup")
 
 
 @app.errorhandler(404)
