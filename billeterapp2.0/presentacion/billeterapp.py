@@ -1,11 +1,12 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_login import login_user, logout_user
 
-from forms import LoginForm, SignupForm
-from negocio.usuarios import User as UserLogic
+from negocio.usuarios import UserLogic
+from presentacion.forms import LoginForm, SignupForm
+
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
+app.config["SECRET_KEY"] = "~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e"
 
 @app.route("/")
 @app.route("/index")
@@ -16,14 +17,14 @@ def index():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = UserLogic.find_by_username(form.username.data)
-        if user is not None and user.check_password(form.password.data):
+        u = UserLogic()
+        user = u.find_by_username(form.username.data)
+        if user is not None: #Check password aca
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}.".format(user.username))
-            return redirect(request.args.get('next') or url_for('bookmarks.user',
-                                                username=user.username))
+            return redirect(request.args.get('next') or url_for('index'))
         flash('Incorrect username or password.')
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, title="Login")
 
 
 @app.route("/logout")
@@ -39,10 +40,11 @@ def signup():
         user = {"email": form.email.data,
                     "username": form.username.data,
                     "password": form.password.data}
-        UserLogic.insert_one(user)
+        u = UserLogic()
+        u.insert_one(user)
         flash('Welcome, {}! Please login.'.format(user["username"]))
         return redirect(url_for('.login'))
-    return render_template("signup.html", form=form)
+    return render_template("signup.html", form=form, title="Signup")
 
 
 @app.errorhandler(404)
@@ -54,4 +56,4 @@ def server_error(e):
     return render_template("500.html"), 500
 
 if __name__== "__main__":
-    app.run(debug=True,host="localhost")
+    app.run(debug=False, host="localhost")
