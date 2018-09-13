@@ -11,12 +11,10 @@ class Manejobd(object):
     def buscarUsuario(self, usuario):
         for usu_a_devolver in self.Aversiahorradb.usuarios.find({"Usuario": usuario}):
             return usu_a_devolver
-   
-   def darDeBajaUsu(self, usuario):
-       for usu_a_bajar in self.Aversiahorradb.usuarios.delete_one({"Usuario": usuario}):
-           return ("Usuario Eliminado")
 
-
+    def darBajaUsu(self, usuario):
+        for usu_abajar in self.Aversiahorradb.usuarios.delete_one({"Usuario": usuario}):
+            return ("Usuario Eliminado")
 
     def altaGasIng(self, gasto_ingreso): 
         self.Aversiahorradb.gastos.insert_one(gasto_ingreso)
