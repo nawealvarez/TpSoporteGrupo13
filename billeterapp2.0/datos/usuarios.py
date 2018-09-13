@@ -2,19 +2,16 @@ import pymongo
 
 from connection import Connection
 
-class UserData():
+class UserData:
     def create_user(self, user):
-        c = Connection()
-        db = c.connect()
+        db = Connection.openConection()
         db.usuarios.InsertOne(user)
 
     def find_by_username(self, username):
-        c = Connection()
-        db = c.connect()
+        db = Connection.openConection()
         return db.usuarios.find_one({"username": username})
 
     def find_by_prop(self, key, value):
-        c = Connection()
-        db = c.connect()
+        db = Connection.openConection()
         return db.usuarios.find({key: value})
    

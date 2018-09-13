@@ -19,7 +19,7 @@ def login():
     if form.validate_on_submit():
         u = UserLogic()
         user = u.find_by_username(form.username.data)
-        if user is not None:
+        if user is not None: #Check password aca
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}.".format(user.username))
             return redirect(request.args.get('next') or url_for('index'))
