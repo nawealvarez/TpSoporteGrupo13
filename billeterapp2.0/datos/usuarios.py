@@ -1,6 +1,6 @@
 from manejodedatos import Manejobd
 
-class DatosUsuario(object):
+class Usuario(object):
     c = Manejobd()
     usu = {}
     id = "_id"
