@@ -1,7 +1,8 @@
 from pymongo import MongoClient
 
-class Connection:
-    @staticmethod   
+class Conn(object):
     def openConection(self):
         client = MongoClient(host=["localhost:27017"])
-        return client.AverSiAhorra
+        #return client.AverSiAhorra
+        return client.test
+
