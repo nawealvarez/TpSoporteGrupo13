@@ -1,20 +1,8 @@
 from connection import Connection
 
-class Manejobd(object):
+class Registro(object):
     c = Connection()
-    Aversiahorradb = c.connect()
-
-    def altaUsuario(self, usuario):
-        self.Aversiahorradb.usuarios.insert_one(usuario)
-        # return usuario
-
-    def buscarUsuario(self, usuario):
-        for usu_a_devolver in self.Aversiahorradb.usuarios.find({"Usuario": usuario}):
-            return usu_a_devolver
-
-    def darBajaUsu(self, usuario):
-        for usu_abajar in self.Aversiahorradb.usuarios.delete_one({"Usuario": usuario}):
-            return ("Usuario Eliminado")
+    db = c.connect()
 
     def altaGasIng(self, gasto_ingreso): 
         self.Aversiahorradb.gastos.insert_one(gasto_ingreso)
