@@ -32,10 +32,10 @@ class SignupForm(Form):
 
     """Falta crear los metodos de filtrado en la capa de datos """
 
-    def validate_email(self, email_field):
-        if Usuario.find(email=email_field.data).first():
-            raise ValidationError("Ya existe un usuario con este email.")
+    # def validate_email(self, email_field):
+    #     if Usuario.find(email=email_field.data).first():
+    #         raise ValidationError("Ya existe un usuario con este email.")
     
-    def validate_username(self, username_field):
-        if Usuario.filter_by(username=username_field.data).first():
-            raise ValidationError("Usuario existente.")
+    # def validate_username(self, username_field):
+    #     if Usuario.filter_by(username=username_field.data).first():
+    #         raise ValidationError("Usuario existente.")

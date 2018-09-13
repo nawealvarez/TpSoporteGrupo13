@@ -1,23 +1,24 @@
-from manejodedatos import Manejobd
+from pymongo import InsertOne
+
+from datos.connection import Connection
 
 class Usuario(object):
-    c = Manejobd()
-    usu = {}
-    id = "_id"
-    id_valor =  c.Aversiahorradb.usuarios.find().count()+1
-    usu[id] = id_valor
-    usuario = "Usuario"
-    val_usu = input("Ingrese un nombre de Usuario: ")
-    usu[usuario]=val_usu
-    passw = "Password"
-    val_pass = input("Ingrese una Contraseña: ")
-    usu[passw]=val_pass
-    nombre = "Nombre"
-    val_nom = input("Ingrese su Nombre: ")
-    usu[nombre]=val_nom
-    apellido = "Apellido"
-    val_apel = input("Ingrese su Apellido: ")
-    usu[apellido]=val_apel
-    c.altaUsuario(usu)
 
+    @classmethod
+    def create_user(self, user):
+        c = Connection()
+        db = c.connect()
+        db.usuarios.InsertOne(user)
+
+    @classmethod
+    def find_by_username(self, username):
+        c = Connection()
+        db = c.connect()
+        return db.usuarios.find_one({"username": username})
+
+    @classmethod
+    def find_by_prop(self, key, value):
+        c = Connection()
+        db = c.connect()
+        return db.usuarios.find({key: value})
    
