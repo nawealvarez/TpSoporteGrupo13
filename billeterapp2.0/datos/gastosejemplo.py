@@ -1,13 +1,12 @@
-from manejodedatos import Manejobd
 import time
 
 class DatosGastos():
     gasing = {}
-    c = Manejobd()
+    # c = Manejobd()
     listo = False
     op = "w"
     id = "_id"
-    id_valor =  c.Aversiahorradb.gastos.find().count()+1
+    id_valor = 0 #  c.Aversiahorradb.gastos.find().count()+1
     gasing[id] = id_valor
     fecha = "Fecha"
     v_fecha =  time.strftime("%c")
@@ -36,4 +35,4 @@ class DatosGastos():
         elif op == "n":
             listo = True
     
-    c.altaGasIng(gasing)
+   # c.altaGasIng(gasing)
