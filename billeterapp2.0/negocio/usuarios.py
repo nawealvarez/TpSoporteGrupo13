@@ -1,11 +1,15 @@
-from datos.usuarios import Usuario as UserData
+from datos.usuarios import UserData
 
-class User():
+class UserLogic():
 
-    @classmethod
     def insert_one(self, user):
-        UserData.create_user(user)
+        u = UserData()
+        u.create_user(user)
 
-    @classmethod
     def find_by_username(self, username):
-        return UserData.find_by_username(username)
+        u = UserData()
+        return u.find_by_username(username)
+
+# c = UserLogic()
+# m = c.find_by_username("marche")
+# print(m)

@@ -2,7 +2,7 @@ from flask_wtf import Form
 from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField
 from flask_wtf.html5 import URLField
 from wtforms.validators import DataRequired, url, Length, Regexp, Email, EqualTo, ValidationError
-from datos.usuarios import Usuario
+from negocio.usuarios import UserLogic
 
 
 class LoginForm(Form):
