@@ -18,7 +18,7 @@ def login():
     if form.validate_on_submit():
         userlogic = UserLogic()
         user = userlogic.find_by_username(form.username.data)
-        if user is not None and user.check_password(form.password.data):
+        if user is not None: #user.check_password(form.password.data, form.username.data):
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}.".format(user.username))
             return redirect(request.args.get('next') or url_for('bookmarks.user',
@@ -42,8 +42,8 @@ def signup():
                 "password": form.password.data}
         userlogic = UserLogic()
         userlogic.insert_one(user)
-        flash('Welcome, {}! Please login.'.format(user["username"]))
-        return redirect(url_for('.login'))
+        flash('Welcome! Please login.')
+        return redirect(url_for("login"))
     return render_template("signup.html", form=form)
 
 @app.errorhandler(404)

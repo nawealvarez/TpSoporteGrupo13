@@ -1,14 +1,21 @@
 {%macro render_field(field)%}
     <tr {%if field.errors%} class="error" {%endif%}>
-        <td>{{field.label}}</td>
-        <td>{{field(**kwargs)|safe}}</td>
+            <div class="form-group">
+                <label>{{field.label}}</label>
+                {{field(**kwargs)|safe}}
+            </div>
     </tr>
     <tr class="error">
         <td></td>
         <ul>
             {%for error in field.errors%}
-                <li>{{error}}</li>
+            <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{error}}
+                  </div>
             {%endfor%}
         </ul>
     </tr>
+    
 {%endmacro%}

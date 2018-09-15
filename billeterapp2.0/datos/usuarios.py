@@ -6,7 +6,7 @@ class UserData():
     def create_user(self, user):
         c = Connection()
         db = c.connect()
-        db.usuarios.InsertOne(user)
+        db.usuarios.insert_one(user)
 
     def find_by_username(self, username):
         c = Connection()
@@ -22,4 +22,9 @@ class UserData():
         c = Connection()
         db = c.connect()
         return db.usuarios.find({key: value})
+    
+    def check_password(self, pwhash, username):
+        c = Connection()
+        db = c.connect()
+        return any(db.usuarios.find_one({"username": username, "password": pwhash}))
    
