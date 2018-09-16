@@ -31,9 +31,9 @@ class SignupForm(Form):
     email = StringField("Email: ", validators=[DataRequired(), Length(1, 20), Email()])
 
     def validate_email(self, email_field):
-        if UserValidations.is_email_valid(str(email_field)):
+        if UserValidations.is_email_valid(email_field.data):
             raise ValidationError("Ya existe un usuario con este email.")
     
     def validate_username(self, username_field):
-        if UserValidations.is_username_valid(str(username_field)):
+        if UserValidations.is_username_valid(username_field.data):
             raise ValidationError("Usuario existente.")
