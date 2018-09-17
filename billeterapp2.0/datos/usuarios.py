@@ -23,4 +23,5 @@ class UserData():
         db = Connection.connect()
         u = any(db.usuarios.find_one({"username": username, "password": pwhash}))
         return u
-   
+    
+        

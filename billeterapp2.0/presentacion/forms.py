@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField, FloatField, DateTimeField
 from flask_wtf.html5 import URLField
 from wtforms.validators import DataRequired, url, Length, Regexp, Email, EqualTo, ValidationError
 
@@ -12,6 +12,10 @@ class LoginForm(Form):
     remember_me = BooleanField("Mantenerme logeado: ")
     submit = SubmitField("Iniciar sesion")
 
+class RegistrosForm(Form):
+    categoria = StringField("Categoria del registro [gasto-categoria o ingreso-categoria]: ", validators=[DataRequired])
+    valor = FloatField("Valor del registro: ", validators=[DataRequired])
+    descripcion = StringField("Descripcion(opcional): ")
 
 class SignupForm(Form):
     username = StringField("Usuario: ", 
@@ -28,7 +32,7 @@ class SignupForm(Form):
     
     password2 = PasswordField("Confirmar contrasena: ", validators=[DataRequired()])
 
-    email = StringField("Email: ", validators=[DataRequired(), Length(1, 20), Email()])
+    email = StringField("Email: ", validators=[DataRequired(), Length(1, 50), Email()])
 
     def validate_email(self, email_field):
         if UserValidations.is_email_valid(email_field.data):
