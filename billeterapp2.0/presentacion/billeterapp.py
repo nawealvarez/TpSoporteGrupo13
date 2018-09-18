@@ -49,8 +49,7 @@ def new_register():
         registro = {"categoria": form.categoria.data,
                     "valor": form.valor.data,
                     "descripcion": form.descripcion.data}
-        reglogic = RegistroLogic()
-        reglogic.insert_one(registro)
+        RegistroLogic.insert_one(registro)
         flash('Registro cargado!')
         return redirect(url_for("new_register.html"))
     return render_template("index.html")
