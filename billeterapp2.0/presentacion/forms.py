@@ -28,7 +28,7 @@ class SignupForm(Form):
     
     password2 = PasswordField("Confirmar contrasena: ", validators=[DataRequired()])
 
-    email = StringField("Email: ", validators=[DataRequired(), Length(1, 20), Email()])
+    email = StringField("Email: ", validators=[DataRequired(), Length(1, 40), Email()])
 
     def validate_email(self, email_field):
         if UserValidations.is_email_valid(email_field.data):

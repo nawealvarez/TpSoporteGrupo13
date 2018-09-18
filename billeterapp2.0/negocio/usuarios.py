@@ -1,19 +1,22 @@
 from datos.usuarios import UserData
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from entidades.objects import Usuario
+
 class UserLogic():
 
-    def insert_one(self, user):
-        user["password"] = generate_password_hash(user["password"])
-        u = UserData()
-        u.create_user(user)
+    @staticmethod
+    def insert_one(user):
+        user.password = generate_password_hash(user.password)
+        UserData.create_user(user)
 
-    def find_by_username(self, username):
-        u = UserData()
-        return u.find_by_username(username)
-
-    def check_password(self, password, username):
-        u = UserData()
+    @staticmethod
+    def find_by_username(username):
+        user = UserData.find_by_username(username)
+        return Usuario(user["_id"], user["username"], user["email"], user["password"])
+        
+    @staticmethod
+    def check_password(password, username):
         pwhash = generate_password_hash(password)        
-        return u.check_password(password, pwhash)
+        return UserData.check_password(password, pwhash)
 
