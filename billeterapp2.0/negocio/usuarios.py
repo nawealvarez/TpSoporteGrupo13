@@ -13,10 +13,11 @@ class UserLogic():
     @staticmethod
     def find_by_username(username):
         user = UserData.find_by_username(username)
-        return Usuario(user["_id"], user["username"], user["email"], user["password"])
+        return Usuario(user["username"], user["email"], user["_id"]) if user else None
         
     @staticmethod
     def check_password(password, username):
         pwhash = generate_password_hash(password)        
         return UserData.check_password(password, pwhash)
+
 

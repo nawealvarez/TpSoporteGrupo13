@@ -45,23 +45,24 @@ def logout():
 @app.route("/new_register", methods=["GET", "POST"])
 def new_register():
     form = RegistrosForm()
-    registro = {"categoria": form.categoria.data,
-                "valor": form.valor.data,
-                "descripcion": form.descripcion.data}
-    reglogic = RegistroLogic()
-    reglogic.insert_one(registro)
-    flash('Registro cargado!')
-    return redirect(url_for("new_register.html"))
+    if form.validate_on_submit():
+        registro = {"categoria": form.categoria.data,
+                    "valor": form.valor.data,
+                    "descripcion": form.descripcion.data}
+        reglogic = RegistroLogic()
+        reglogic.insert_one(registro)
+        flash('Registro cargado!')
+        return redirect(url_for("new_register.html"))
+    return render_template("index.html")
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
-        user = Usuario(form.email.data,
-                form.username.data,
-                form.password.data)
-        userlogic = UserLogic()
-        userlogic.insert_one(user)
+        user = Usuario(form.username.data,
+                form.email.data)
+        user.password = form.password.data
+        UserLogic.insert_one(user)
         flash('Welcome! Please login.')
         return redirect(url_for("login"))
     return render_template("signup.html", form=form)

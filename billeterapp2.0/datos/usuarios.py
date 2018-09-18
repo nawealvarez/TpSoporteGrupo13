@@ -6,7 +6,8 @@ class UserData():
     @staticmethod
     def create_user(user):
         db = Connection.connect()
-        db.usuarios.insert_one(user)
+        user._id = UserData.__generate_id()
+        db.usuarios.insert_one(user.__dict__)
 
     @staticmethod
     def find_by_username(username):
@@ -28,3 +29,11 @@ class UserData():
         db = Connection.connect()
         return True if db.usuarios.find_one({"username": username, "password": pwhash}) else False
    
+    @staticmethod
+    def __generate_id():
+        db = Connection.connect()
+        try:
+            max_id = db.usuarios.find_one({}, {"_id": 1}, sort=[("_id", pymongo.DESCENDING)])["_id"]
+        except:
+            max_id = 0
+        finally: return max_id + 1
