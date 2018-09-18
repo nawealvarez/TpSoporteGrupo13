@@ -17,7 +17,10 @@ class UserLogic():
         
     @staticmethod
     def check_password(password, username):
-        pwhash = generate_password_hash(password)        
-        return UserData.check_password(password, pwhash)
+        pwhash = UserData.get_user_password(username)
+        return check_password_hash(pwhash, password)
 
 
+    @staticmethod 
+    def find_by_id(userid):
+        return UserData.find_by_id(userid)

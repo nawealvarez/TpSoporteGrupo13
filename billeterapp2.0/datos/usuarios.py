@@ -30,6 +30,11 @@ class UserData():
         return True if db.usuarios.find_one({"username": username, "password": pwhash}) else False
    
     @staticmethod
+    def find_by_id(userid):
+        db = Connection.connect()
+        return db.usuarios.find_one({"_id": userid})
+
+    @staticmethod
     def __generate_id():
         db = Connection.connect()
         try:
@@ -37,3 +42,7 @@ class UserData():
         except:
             max_id = 0
         finally: return max_id + 1
+    
+    @staticmethod
+    def get_user_password(username):
+        return UserData.find_by_username(username)["password"]

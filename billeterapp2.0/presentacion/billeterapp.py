@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user, LoginManager
 from collections import namedtuple
 import pygal
 
@@ -10,6 +10,12 @@ from negocio.registros import RegistroLogic
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(userid):
+    return UserLogic.find_by_id(int(userid))
 
 @app.route("/")
 @app.route("/index")
