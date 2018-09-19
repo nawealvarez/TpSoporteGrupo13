@@ -1,7 +1,7 @@
 {%extends "base.html" %}
 {%block content%}
 uno
-    {%if current_user.is_authenticated()%}
+    {%if current_user.is_authenticated%}
     dos
         {%include "moves_list.html"%}
     {%endif%}

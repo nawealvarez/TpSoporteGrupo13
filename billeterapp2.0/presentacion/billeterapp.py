@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
-from flask_webhelpers import ObjectGrid
 import pygal
 
 from negocio.usuarios import UserLogic
