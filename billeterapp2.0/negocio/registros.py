@@ -2,11 +2,20 @@ from datos.registros import RegistroData
 
 class RegistroLogic():
 
-    def insert_one(self, registro):
+    @staticmethod
+    def insert_one(registro):
         RegistroData.create_registro(registro)
 
-    def find_by_categoria(self, categoria):
+    @staticmethod
+    def find_by_categoria(categoria):
         return RegistroData.find_by_categoria(categoria)
+
+    @staticmethod
+    def get_lasts_registers(userid, top):
+        col = list(RegistroData.get_lasts_registers(userid, top))
+        return col
+    
+
 
    # def sort_by_date(self):
    #     r = RegistroData()

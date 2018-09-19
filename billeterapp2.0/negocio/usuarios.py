@@ -23,4 +23,5 @@ class UserLogic():
 
     @staticmethod 
     def find_by_id(userid):
-        return UserData.find_by_id(userid)
+        user = UserData.find_by_id(userid)
+        return Usuario(user["username"], user["email"], user["_id"]) if user else None

@@ -1,0 +1,18 @@
+{%block list%}
+    <section>
+        <h1>ULTIMOS MOVIMIENTOS</h1>
+        {%if moves}
+            <table>
+                {%for move in moves%}
+                <tr>
+                    <td>{{move.fecha}}</td>
+                    <td>{{move.valor}}</td>
+                    <td>{{move.descripcion}}</td>
+                </tr>
+                {%endfor%}
+            </table>
+        {%else%}
+            --No hay movimientos--
+        {%endif%}
+    </section>
+{%endblock%}

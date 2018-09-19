@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
-from collections import namedtuple
+from flask_webhelpers import ObjectGrid
 import pygal
 
 from negocio.usuarios import UserLogic
@@ -20,7 +20,8 @@ def load_user(userid):
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html", title="index")
+    moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10),
+    return render_template("index.html", title="index", moves=moves)
 
 #@app.route("/lista")
 #def lista():
@@ -48,6 +49,7 @@ def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
+
 @app.route("/new_register", methods=["GET", "POST"])
 def new_register():
     form = RegistrosForm()
@@ -57,8 +59,8 @@ def new_register():
                     "descripcion": form.descripcion.data}
         RegistroLogic.insert_one(registro)
         flash('Registro cargado!')
-        return redirect(url_for("new_register.html"))
-    return render_template("index.html")
+        return redirect(url_for("new_register"))
+    return render_template("new_register.html", form=form)
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
