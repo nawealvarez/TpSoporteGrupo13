@@ -13,8 +13,8 @@ class LoginForm(Form):
     submit = SubmitField("Iniciar sesion")
 
 class RegistrosForm(Form):
-    categoria = StringField("Categoria del registro [gasto-categoria o ingreso-categoria]: ", validators=[DataRequired])
-    valor = FloatField("Valor del registro: ", validators=[DataRequired])
+    categoria = StringField("Categoria del registro [gasto-categoria o ingreso-categoria]: ", validators=[DataRequired()])
+    valor = FloatField("Valor del registro: ", validators=[DataRequired()])
     descripcion = StringField("Descripcion(opcional): ")
 
 class SignupForm(Form):

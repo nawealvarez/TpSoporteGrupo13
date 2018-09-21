@@ -57,7 +57,7 @@ def logout():
 @app.route("/new_register", methods=["GET", "POST"])
 def new_register():
     form = RegistrosForm()
-    if form.is_submitted():
+    if form.validate_on_submit():
         registro = {"categoria": form.categoria.data,
                     "valor": form.valor.data,
                     "descripcion": form.descripcion.data,
