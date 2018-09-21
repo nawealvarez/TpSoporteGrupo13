@@ -66,7 +66,7 @@ def signup():
     form = SignupForm()
     if form.validate_on_submit():
         user = Usuario(form.username.data,
-                form.email.data)
+                       form.email.data)
         user.password = form.password.data
         UserLogic.insert_one(user)
         flash('Welcome! Please login.')

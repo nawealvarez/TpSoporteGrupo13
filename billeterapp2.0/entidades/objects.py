@@ -1,10 +1,12 @@
 from flask_login import UserMixin
-from enum import Enum
 
+# Cuando llama al init de super lo rompe
+# Que la clase herede de Enum tambien lo rompe
 
-class Usuario(UserMixin, Enum):    
+class Usuario(UserMixin):
     def __init__(self, username, email,  _id = None):
-        super.__init__()
+        #super.__init__()
+
         self._id = _id
         self.username = username
         self.email = email
