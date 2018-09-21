@@ -12,15 +12,18 @@ app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 @login_manager.user_loader
 def load_user(userid):
     return UserLogic.find_by_id(int(userid))
+
 
 @app.route("/")
 @app.route("/index")
 def index():
     moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10),
     return render_template("index.html", title="index", moves=moves)
+
 
 #@app.route("/lista")
 #def lista():
@@ -29,6 +32,7 @@ def index():
 #        manufacturer = request.form['manu']
 #        flash(str(manufacturer))
 #    return render_template("new_register.html", title = 'Home', carlist=carlist)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -42,7 +46,7 @@ def login():
         flash('Usuario o contrasena incorrecta.')
     return render_template("login.html", form=form)
 
- 
+
 @app.route("/logout")
 def logout():
     logout_user()
@@ -61,6 +65,7 @@ def new_register():
         return redirect(url_for("new_register"))
     return render_template("new_register.html", form=form)
 
+
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
@@ -72,6 +77,7 @@ def signup():
         flash('Welcome! Please login.')
         return redirect(url_for("login"))
     return render_template("signup.html", form=form)
+
 
 @app.route("/graphs")
 def grapic_example():
@@ -90,9 +96,11 @@ def grapic_example():
 def page_not_found(e):
     return render_template("404.html"), 404
 
+
 @app.errorhandler(500)
 def server_error(e):
     return render_template("500.html"), 500
+
 
 if __name__== "__main__":
     app.run(debug=False, host="localhost")
