@@ -26,8 +26,13 @@ def index():
     return render_template("index.html", title="index", moves=moves)
 
 
+<<<<<<< HEAD
 # @app.route("/lista")
 # def lista():
+=======
+#@app.route("/lista")
+#def lista():
+>>>>>>> 142c56f514ad2c91ec38fe5689b1ba630ffbbf8c
 #    carlist = ['Subaru', 'Chevy']
 #    if request.method == 'POST':
 #        manufacturer = request.form['manu']
@@ -47,7 +52,7 @@ def login():
         flash('Usuario o contrasena incorrecta.')
     return render_template("login.html", form=form)
 
- 
+
 @app.route("/logout")
 def logout():
     logout_user()
