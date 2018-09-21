@@ -4,19 +4,54 @@
    Author's custom styles
    ========================================================================== */
 
+h1{
+    color:black;
+}
 
+ ul {
+    list-style-type: none;
+    margin:0;
+    padding:10px 0;
+  }
+  ul li {
+    float: left;
+    list-style-type: none;
+    margin: 0 6px;
+  }
+  ul a {
+    display: block;
+    height: 26px;
+    line-height: 26px;
+    text-decoration: none;
+    color: black;
+    font-weight: italic;
+    text-transform: uppercase;
+    padding: 0px 4px;
+  }
 
+  .brand-title{
+      font-family: 'Courier New', Courier, monospace;
+      display: block;
+      font-weight: bold;
+      color: #4fa7a0;
+      font-size: 25px;
+      float: left;
+      height: 0;
+      margin: 20px;
+  }
 
+  .log-btn {
+    display: inline-block;
+    float: right;
+    margin: 0;
+    height: auto;
+    width: auto;
+}
 
+  .logo{
+    margin: auto;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
+  .main-bar{
+    height: 75px;
+  }
