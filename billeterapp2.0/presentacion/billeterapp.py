@@ -8,6 +8,7 @@ from entidades.objects import Usuario
 from presentacion.forms import LoginForm, SignupForm, RegistrosForm
 from negocio.registros import RegistroLogic
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
 login_manager = LoginManager()
@@ -46,7 +47,6 @@ def login():
             return redirect(request.args.get('next') or url_for('index'))
         flash('Usuario o contrasena incorrecta.')
     return render_template("login.html", form=form)
-
 
 @app.route("/logout")
 def logout():
