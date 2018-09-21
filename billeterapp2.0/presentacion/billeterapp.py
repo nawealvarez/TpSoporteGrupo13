@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
 import pygal
+from datetime import datetime
 
 from negocio.usuarios import UserLogic
 from entidades.objects import Usuario
@@ -56,10 +57,11 @@ def logout():
 @app.route("/new_register", methods=["GET", "POST"])
 def new_register():
     form = RegistrosForm()
-    if form.validate_on_submit():
+    if form.is_submitted():
         registro = {"categoria": form.categoria.data,
                     "valor": form.valor.data,
-                    "descripcion": form.descripcion.data}
+                    "descripcion": form.descripcion.data,
+                    "fecha": datetime.utcnow()}
         RegistroLogic.insert_one(registro)
         flash('Registro cargado!')
         return redirect(url_for("new_register"))
@@ -102,5 +104,5 @@ def server_error(e):
     return render_template("500.html"), 500
 
 
-if __name__== "__main__":
+if __name__ == "__main__":
     app.run(debug=False, host="localhost")

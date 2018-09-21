@@ -7,8 +7,6 @@ class RegistroData():
     @staticmethod
     def create_registro(registro):
         db = Connection.connect()
-        fecha = datetime.datetime.now
-        registro["fecha"] = fecha
         db.registros.insert_one(registro)
 
     @staticmethod
