@@ -21,7 +21,5 @@ class RegistroData():
     
     @staticmethod
     def get_lasts_registers(userid, top):
-        #db = Connection.connect()
-        #return db.registros.find({"userid": userid}, sort=[("fecha", pymongo.DESCENDING)]).limit(top)
-        reg = {"_id":0,"categoria":"prostitutas","descripcion":"petes petes petes","fecha":"","valor":10,"userid":2}
-        return reg
+        db = Connection.connect()
+        return db.registros.find({"userid": userid}, sort=[("fecha", pymongo.DESCENDING)]).limit(top)

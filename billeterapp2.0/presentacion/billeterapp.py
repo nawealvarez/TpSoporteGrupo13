@@ -23,7 +23,9 @@ def load_user(userid):
 @app.route("/")
 @app.route("/index")
 def index():
-    moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10),
+    if current_user.is_authenticated: 
+        moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10)
+    else: moves = None
     return render_template("index.html", title="index", moves=moves)
 
 
