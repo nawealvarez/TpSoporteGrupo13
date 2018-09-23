@@ -15,6 +15,14 @@ class RegistroLogic():
         col = list(RegistroData.get_lasts_registers(userid, top))
         return col
     
+    @staticmethod
+    def get_balance(userid):
+        montos = list(RegistroData.get_montos(userid))
+        count = 0
+        for m in montos:
+            count = count + int(m["valor"])
+        return count
+
 
 
    # def sort_by_date(self):

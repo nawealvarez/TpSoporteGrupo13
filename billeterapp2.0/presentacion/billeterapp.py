@@ -25,8 +25,11 @@ def load_user(userid):
 def index():
     if current_user.is_authenticated: 
         moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10)
-    else: moves = None
-    return render_template("index.html", title="index", moves=moves)
+        balance = RegistroLogic.get_balance(current_user.get_id())
+    else: 
+        moves = None
+        balance = None
+    return render_template("index.html", title="index", moves=moves, balance=balance)
 
 
 #@app.route("/lista")

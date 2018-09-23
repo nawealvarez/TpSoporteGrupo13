@@ -18,7 +18,7 @@
                         {%endif%}>
                         <th scope="row">{{loop.index}}</th>
                         <td>{{move.fecha.strftime('%d-%m-%Y')}}</td>
-                        <td>{{move.valor}}</td>
+                        <td>$ {{move.valor}}</td>
                         <td>{{move.descripcion}}</td>
                     </tr>
                     {%endfor%}

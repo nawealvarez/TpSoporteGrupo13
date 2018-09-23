@@ -23,3 +23,8 @@ class RegistroData():
     def get_lasts_registers(userid, top):
         db = Connection.connect()
         return db.registros.find({"userid": userid}, sort=[("fecha", pymongo.DESCENDING)]).limit(top)
+
+    @staticmethod
+    def get_montos(userid):
+        db = Connection.connect()
+        return db.registros.find({"userid": userid}, {"valor": 1})

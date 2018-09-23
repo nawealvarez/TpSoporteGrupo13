@@ -30,11 +30,12 @@ h1{
   }
 
   .brand-title{
-      font-family: 'Courier New', Courier, monospace;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: block;
-      font-weight: bold;
-      color: #4fa7a0;
-      font-size: 25px;
+      font-weight: italic;
+      /*color: #4fa7a0;*/
+      color: white;
+      font-size: 30px;
       float: left;
       height: 0;
       margin: 20px;
