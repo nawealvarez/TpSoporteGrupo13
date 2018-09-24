@@ -23,7 +23,7 @@ def load_user(userid):
 @app.route("/")
 @app.route("/index")
 def index():
-    if current_user.is_authenticated: 
+    if current_user.is_authenticated:
         moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10)
         balance = RegistroLogic.get_balance(current_user.get_id())
     else: 
@@ -90,11 +90,14 @@ def signup():
 def grapic_example():
     graph = pygal.Pie(inner_radius=.40)
     graph.title = 'Todos tus registros pillo'
-    graph.add('Comida', 19.5)
+    '''graph.add('Comida', 19.5)
     graph.add('Alquiler', 36.6)
     graph.add('Ropa', 36.3)
     graph.add('Bancos', 4.5)
-    graph.add('Salidas', 2.3)
+    graph.add('Salidas', 2.3)'''
+    print(current_user.get_id())
+    for c,v in RegistroLogic.get_categorias(current_user.get_id()).items():
+        graph.add(c,v)
     graph_data = graph.render_data_uri()
     return render_template("graphs.html", graph_data=graph_data)
 

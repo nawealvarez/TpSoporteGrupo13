@@ -23,6 +23,20 @@ class RegistroLogic():
             count = count + int(m["valor"])
         return count
 
+    @staticmethod
+    def get_categorias(userid):
+        cur = RegistroData.get_registros(userid)
+        cat = {}
+        for i in cur:
+            a = i['categoria']
+            if i['categoria'] in list(cat):
+                cat[a] = cat[a] + i['valor']
+            else:
+                cat[a] = i['valor']
+        print(cat)
+        return cat
+
+
 
 
    # def sort_by_date(self):
