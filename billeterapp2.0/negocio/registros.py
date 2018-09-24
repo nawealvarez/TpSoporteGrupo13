@@ -20,7 +20,7 @@ class RegistroLogic():
         montos = list(RegistroData.get_montos(userid))
         count = 0
         for m in montos:
-            count = count + int(m["valor"])
+            count = count + float(format(m["valor"], ".2f"))
         return count
 
     @staticmethod

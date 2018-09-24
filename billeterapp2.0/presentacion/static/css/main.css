@@ -57,3 +57,35 @@ h1{
     height: 75px;
     background:black;
   }
+
+  .flashes ul li{
+    color: #4fa7a0;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    clear: both;
+    margin-bottom: 30px;
+    width: 100%;
+  }
+
+  footer{
+    text-align: center;
+    width: 100%;
+  }
+
+  .error{
+    margin-top: 10px;
+  }
+
+  button[type=submit]{
+    margin-top: 10px;
+  }
+
+  .balance{
+    text-align: center;
+    font-size: 25px;
+  }
+
+  .tabla{
+    max-height: 100px;
+    overflow-y: scroll;
+  }

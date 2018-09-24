@@ -21,7 +21,7 @@ class SignupForm(Form):
     username = StringField("Usuario: ", 
                     validators=[
                         DataRequired(),
-                        Length(3, 80),
+                        Length(3, 80, "El nombre de usuario debe contener entre 3 y 80 caracteres."),
                         Regexp("^[A-Za-z0-9_]{3,}$",
                         message="El usuario consiste en numeros, letras y guionbajos.")])
 
