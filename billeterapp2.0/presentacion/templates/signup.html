@@ -7,7 +7,7 @@ Thermos -- Signup
 
 {%block content%}
     <section style="clear:both">
-        <div class="col-md-4 col-md-offset-4">
+        <div>
             <h1>Cree su cuenta</h1>
             <form action="" method="post" class="form-group">
                 {{form.hidden_tag()}}
@@ -16,7 +16,7 @@ Thermos -- Signup
                     {{render_field(form.email, size=50, class="form-control")}}
                     {{render_field(form.password, size=50, class="form-control")}}
                     {{render_field(form.password2, size=50, class="form-control")}}
-                    <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                    <button type="submit" class="btn btn-primary col-sm-2">Iniciar sesion</button>
                 </table>
             </form>
         </div>
