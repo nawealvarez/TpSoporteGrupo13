@@ -66,7 +66,8 @@ def new_register():
         registro = {"categoria": form.categoria.data,
                     "valor": form.valor.data,
                     "descripcion": form.descripcion.data,
-                    "fecha": datetime.utcnow()}
+                    "fecha": datetime.utcnow(),
+                    "userid": current_user.get_id()}
         RegistroLogic.insert_one(registro)
         flash('Registro cargado!')
         return redirect(url_for("new_register"))
