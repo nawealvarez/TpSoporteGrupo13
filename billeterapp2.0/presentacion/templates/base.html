@@ -58,9 +58,16 @@
                     </div><!--/.navbar-collapse -->
                 </div>
         </nav>
+    
     {%block jumbotron%}
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
+        {%if current_user.is_authenticated%}
+        <div class="container">
+                <h1>Que desea hacer prro?</h1>
+                <a role="button" class="btn btn-default" href="/graphs"><span class="glyphicon glyphicon-certificate"></span>&nbsp Stadistics</a></button>
+        </div>
+        {%else%}
       <div class="container ">
         <h1>Bienvenido a "A ver si ahorra"!</h1>
         <p>Esta es una app que le permite gestionar sus ingresos y gastos, ayudandolo a no gastar tanto en pelotudeces.
@@ -68,6 +75,7 @@
         </p>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
       </div>
+      {%endif%}
     </div>
     {%endblock%}
 

@@ -28,6 +28,16 @@ class RegistroData():
     def get_montos(userid):
         db = Connection.connect()
         return db.registros.find({"userid": userid}, {"tipo": 1, "valor": 1})
+    
+    @staticmethod
+    def get_cat_gastos(userid):
+        db = Connection.connect()
+        return db.registros.find({"userid": userid, "tipo": "gasto"})
+    
+    @staticmethod
+    def get_cat_ingresos(userid):
+        db = Connection.connect()
+        return db.registros.find({"userid": userid, "tipo": "ingreso"})
 
     @staticmethod
     def get_registros(userid):

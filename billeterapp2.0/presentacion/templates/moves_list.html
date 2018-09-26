@@ -1,5 +1,5 @@
 {%block list%}
-    <section class="col-md-4">
+    <section class="col-md-5">
         <caption>ULTIMOS MOVIMIENTOS</caption>
         {%if moves%}
             <table class="table table-hover table-sm tabla">
@@ -8,6 +8,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Monto</th>
+                        <th scope="col">Categoria</th>
                         <th scope="col">Descricion</th>
                     </tr>
                 </thead>
@@ -19,6 +20,7 @@
                         <th scope="row">{{loop.index}}</th>
                         <td>{{move.fecha.strftime('%d-%m-%Y')}}</td>
                         <td>$ {{move.valor}}</td>
+                        <td>{{move.categoria}}</td>
                         <td>{{move.descripcion}}</td>
                     </tr>
                     {%endfor%}

@@ -1,5 +1,12 @@
+{%extends "base.html"%}
 {%block content%}
         <div class="container" align="left">
-            <embed type="image/svg+xml" src="{{graph_data|safe}}" style="max-width:700px"/>
+            <embed type="image/svg+xml" src="{{graph_data|safe}}" style="max-width:600px"/>
+        </div>
+        <div class="container" align="center">
+            <embed type="image/svg+xml" src="{{graph_da|safe}}" style="max-width:600px"/>
+        </div>
+        <div class="container" align="right">
+            <embed type="image/svg+xml" src="{{graph_dat|safe}}" style="max-width:600px"/>
         </div>
 {%endblock%}

@@ -27,8 +27,21 @@ class RegistroLogic():
         return count
 
     @staticmethod
-    def get_categorias(userid):
+    def get_tipos(userid):
         cur = RegistroData.get_registros(userid)
+        cat = {}
+        for i in cur:
+            a = i['tipo']
+            if i['tipo'] in list(cat):
+                cat[a] = cat[a] + i['valor']
+            else:
+                cat[a] = i['valor']
+        print(cat)
+        return cat
+
+    @staticmethod
+    def get_cat_gastos(userid):
+        cur = RegistroData.get_cat_gastos(userid)
         cat = {}
         for i in cur:
             a = i['categoria']
@@ -39,7 +52,18 @@ class RegistroLogic():
         print(cat)
         return cat
 
-
+    @staticmethod
+    def get_cat_ingresos(userid):
+        cur = RegistroData.get_cat_ingresos(userid)
+        cat = {}
+        for i in cur:
+            a = i['categoria']
+            if i['categoria'] in list(cat):
+                cat[a] = cat[a] + i['valor']
+            else:
+                cat[a] = i['valor']
+        print(cat)
+        return cat
 
 
    # def sort_by_date(self):

@@ -26,17 +26,17 @@ def index():
     if current_user.is_authenticated:
         moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10)
         balance = RegistroLogic.get_balance(current_user.get_id())
-        graph = pygal.Pie(inner_radius=.40)
-        graph.title = 'Todos tus registros'
-        print(current_user.get_id())
-        for c,v in RegistroLogic.get_categorias(current_user.get_id()).items():
-            graph.add(c,v)
-        graph_data = graph.render_data_uri()
+        #graph = pygal.Pie(inner_radius=.40)
+        #graph.title = 'Todos tus registros'
+        #print(current_user.get_id())
+        #for c,v in RegistroLogic.get_categorias(current_user.get_id()).items():
+        #    graph.add(c,v)
+        #graph_data = graph.render_data_uri()
     else: 
         moves = None
         balance = None
-        graph_data = None
-    return render_template("index.html", title="index", moves=moves, balance=balance, graph_data=graph_data)
+        #graph_data = None
+    return render_template("index.html", title="index", moves=moves, balance=balance)
 
 
 #@app.route("/lista")
@@ -126,20 +126,25 @@ def signup():
     return render_template("signup.html", form=form)
 
 
-'''@app.route("/graphs")
+@app.route("/graphs")
 def grapic_example():
     graph = pygal.Pie(inner_radius=.40)
-    graph.title = 'Todos tus registros pillo'
-    graph.add('Comida', [19.5, 19, 12, 15])
-    graph.add('Alquiler', [36.6, 8,])
-    graph.add('Ropa', 36.3)
-    graph.add('Bancos', 4.5)
-    graph.add('Salidas', 2.3)
+    graph.title = 'Todos tus registros papu'
     print(current_user.get_id())
-    for c,v in RegistroLogic.get_categorias(current_user.get_id()).items():
+    for c,v in RegistroLogic.get_tipos(current_user.get_id()).items():
         graph.add(c,v)
     graph_data = graph.render_data_uri()
-    return render_template("graphs.html", graph_data=graph_data)'''
+    graph2 = pygal.Pie(inner_radius=.40)
+    graph2.title = 'Distribucion de gastos'
+    for c,v in RegistroLogic.get_cat_gastos(current_user.get_id()).items():
+        graph2.add(c,v)
+    graph_da = graph2.render_data_uri()
+    graph3 = pygal.Pie(inner_radius=.40)
+    graph3.title = 'Distribucion de ingresos'
+    for c,v in RegistroLogic.get_cat_ingresos(current_user.get_id()).items():
+        graph3.add(c,v)
+    graph_dat = graph3.render_data_uri()
+    return render_template("graphs.html", graph_data=graph_data, graph_da=graph_da, graph_dat=graph_dat)
 
 
 @app.errorhandler(404)
