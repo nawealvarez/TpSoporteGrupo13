@@ -66,7 +66,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route("/new_register", methods=["GET", "POST"])
+'''@app.route("/new_register", methods=["GET", "POST"])
 def new_register():
     form = RegistrosForm()
     if form.validate_on_submit():
@@ -79,7 +79,7 @@ def new_register():
         RegistroLogic.insert_one(registro)
         flash('Registro cargado!')
         return redirect(url_for("new_register"))
-    return render_template("new_register.html", form=form)
+    return render_template("new_register.html", form=form)'''
 
 @app.route("/gastonew", methods=["GET", "POST"])
 def gastonew():

@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                     {%for move in moves%}
-                    <tr {%if move.valor > 0%} class="success"
+                    <tr {%if move.tipo == "ingreso"%} class="success"
                             {%else%} class="danger"
                         {%endif%}>
                         <th scope="row">{{loop.index}}</th>

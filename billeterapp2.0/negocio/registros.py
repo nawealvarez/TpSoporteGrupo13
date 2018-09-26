@@ -20,7 +20,10 @@ class RegistroLogic():
         montos = list(RegistroData.get_montos(userid))
         count = 0
         for m in montos:
-            count = count + float(format(m["valor"], ".2f"))
+            if m["tipo"] == "gasto":
+                count = count - float(format(m["valor"], ".2f"))
+            elif m["tipo"] == "ingreso":
+                count = count + float(format(m["valor"], ".2f"))
         return count
 
     @staticmethod
