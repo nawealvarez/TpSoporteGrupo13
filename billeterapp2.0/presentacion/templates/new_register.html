@@ -1,6 +1,11 @@
 {%extends "base.html"%}
 {%from "form_macros.html" import render_field%}
 
+{%block styles%}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='css/select2.css')}}">
+{%endblock%}
+
 {%block title%}
 A Ver Si Ahorra -- Registro Input
 {% endblock %}
@@ -12,7 +17,7 @@ A Ver Si Ahorra -- Registro Input
             <form action="" method="post" class="form-group">
                 {{form.hidden_tag()}}
                 <table>
-                    {{render_field(form.categoria, size=50, class="form-control")}}
+                    {{render_field(form.categoria, size=50, class="form-control", id="categorias")}}
                     {{render_field(form.valor, size=50, class="form-control")}}
                     {{render_field(form.descripcion, size=50, class="form-control")}}
                     <button type="submit" class="btn btn-primary">Ingresar Registro</button>
@@ -20,4 +25,14 @@ A Ver Si Ahorra -- Registro Input
             </form>
         </div>
     </section>
+{%endblock%}
+
+{%block scripts%}
+<script src="{{url_for('static', filename='js/vendor/select2.min.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        var _categorias = {{get_all_categories()|map()|list|tojson|safe}};
+        $("#categorias").select2({categorias: _categorias, tokenSeparators: [",", " "]});
+    }); 
+</script>
 {%endblock%}

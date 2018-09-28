@@ -1,6 +1,7 @@
-from flask import Flask, render_template, url_for, redirect, request, flash
+from flask import Flask, render_template, url_for, redirect, request, flash, jsonify
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
 import pygal
+import json
 from datetime import datetime
 
 from negocio.usuarios import UserLogic
@@ -11,6 +12,7 @@ from negocio.registros import RegistroLogic
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
+app.config['DEBUG'] = True
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -30,15 +32,6 @@ def index():
         moves = None
         balance = None
     return render_template("index.html", title="index", moves=moves, balance=balance)
-
-
-#@app.route("/lista")
-#def lista():
-#    carlist = ['Subaru', 'Chevy']
-#    if request.method == 'POST':
-#        manufacturer = request.form['manu']
-#        flash(str(manufacturer))
-#    return render_template("new_register.html", title = 'Home', carlist=carlist)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -71,6 +64,10 @@ def new_register():
         flash('Registro cargado!')
         return redirect(url_for("new_register"))
     return render_template("new_register.html", form=form)
+
+@app.context_processor
+def get_all_categories():
+    return list(RegistroLogic.get_all_categories())
 
 
 @app.route("/signup", methods=["GET", "POST"])

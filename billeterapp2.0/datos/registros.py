@@ -28,3 +28,8 @@ class RegistroData():
     def get_montos(userid):
         db = Connection.connect()
         return db.registros.find({"userid": userid}, {"valor": 1})
+    
+    @staticmethod
+    def get_all_categories():
+        db = Connection.connect()
+        return db.registros.find({}, {"categoria": 1}).distinct("categoria")

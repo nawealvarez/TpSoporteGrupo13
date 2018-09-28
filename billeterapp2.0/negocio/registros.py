@@ -12,9 +12,9 @@ class RegistroLogic():
 
     @staticmethod
     def get_lasts_registers(userid, top):
-        col = list(RegistroData.get_lasts_registers(userid, top))
-        return col
-    
+        l = list(RegistroData.get_lasts_registers(userid, top))
+        return l
+
     @staticmethod
     def get_balance(userid):
         montos = list(RegistroData.get_montos(userid))
@@ -22,9 +22,15 @@ class RegistroLogic():
         for m in montos:
             count = count + float(format(m["valor"], ".2f"))
         return count
-
-
-
-   # def sort_by_date(self):
-   #     r = RegistroData()
-   #     r.sort_registros()
+    
+    @staticmethod
+    def get_all_categories():
+        cats = RegistroData.get_all_categories()
+        if cats:
+            dic = {}
+            index = 0   
+            for c in cats:
+                dic[index] = c
+                index+=1
+        return dic
+        
