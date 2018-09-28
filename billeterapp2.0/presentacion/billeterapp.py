@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
 import pygal
+from pygal.style import Style
 from datetime import datetime
 
 from negocio.usuarios import UserLogic
@@ -102,18 +103,19 @@ def signup():
 
 @app.route("/graphs")
 def grapic_example():
-    graph = pygal.Pie(inner_radius=.40)
-    graph.title = 'Todos tus registros '
+    custom_style = Style(background='transparent', title_font_size=40, legend_font_size=35, transition='400ms ease-in')
+    graph = pygal.Pie(inner_radius=.40, style=custom_style)
+    graph.title = 'Todos tus registros'
     print(current_user.get_id())
     for c,v in RegistroLogic.get_tipos(current_user.get_id()).items():
         graph.add(c,v)
     graph_data = graph.render_data_uri()
-    graph2 = pygal.Pie(inner_radius=.40)
+    graph2 = pygal.Pie(inner_radius=.40, style=custom_style)
     graph2.title = 'Distribucion de gastos'
     for c,v in RegistroLogic.get_categorias(current_user.get_id(), 'gasto').items():
         graph2.add(c,v)
     graph_da = graph2.render_data_uri()
-    graph3 = pygal.Pie(inner_radius=.40)
+    graph3 = pygal.Pie(inner_radius=.40, style=custom_style)
     graph3.title = 'Distribucion de ingresos'
     for c,v in RegistroLogic.get_categorias(current_user.get_id(), 'ingreso').items():
         graph3.add(c,v)
