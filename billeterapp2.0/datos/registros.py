@@ -3,7 +3,7 @@ import datetime
 from datos.connection import Connection
 
 class RegistroData():
-    
+
     @staticmethod
     def create_registro(registro):
         db = Connection.connect()
@@ -18,7 +18,7 @@ class RegistroData():
     def find_by_prop(key, value):
         db = Connection.connect()
         return db.registros.find({key: value})
-    
+
     @staticmethod
     def get_lasts_registers(userid, top):
         db = Connection.connect()
@@ -27,9 +27,29 @@ class RegistroData():
     @staticmethod
     def get_montos(userid):
         db = Connection.connect()
+<<<<<<< HEAD
         return db.registros.find({"userid": userid}, {"valor": 1})
     
     @staticmethod
     def get_all_categories():
         db = Connection.connect()
         return db.registros.find({}, {"categoria": 1}).distinct("categoria")
+=======
+        return db.registros.find({"userid": userid}, {"tipo": 1, "valor": 1})
+    
+    @staticmethod
+    def get_cat_gastos(userid):
+        db = Connection.connect()
+        return db.registros.find({"userid": userid, "tipo": "gasto"})
+    
+    @staticmethod
+    def get_cat_ingresos(userid):
+        db = Connection.connect()
+        return db.registros.find({"userid": userid, "tipo": "ingreso"})
+
+    @staticmethod
+    def get_registros(userid):
+        db = Connection.connect()
+        return db.registros.find({"userid": userid})
+
+>>>>>>> 58a899e3ec00f99e39b1953497d9fdfa56448bd5

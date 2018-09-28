@@ -20,8 +20,12 @@ class RegistroLogic():
         montos = list(RegistroData.get_montos(userid))
         count = 0
         for m in montos:
-            count = count + float(format(m["valor"], ".2f"))
+            if m["tipo"] == "gasto":
+                count = count - float(format(m["valor"], ".2f"))
+            elif m["tipo"] == "ingreso":
+                count = count + float(format(m["valor"], ".2f"))
         return count
+<<<<<<< HEAD
     
     @staticmethod
     def get_all_categories():
@@ -34,3 +38,49 @@ class RegistroLogic():
                 index+=1
         return dic
         
+=======
+
+    @staticmethod
+    def get_tipos(userid):
+        cur = RegistroData.get_registros(userid)
+        cat = {}
+        for i in cur:
+            a = i['tipo']
+            if i['tipo'] in list(cat):
+                cat[a] = cat[a] + i['valor']
+            else:
+                cat[a] = i['valor']
+        print(cat)
+        return cat
+
+    @staticmethod
+    def get_cat_gastos(userid):
+        cur = RegistroData.get_cat_gastos(userid)
+        cat = {}
+        for i in cur:
+            a = i['categoria']
+            if i['categoria'] in list(cat):
+                cat[a] = cat[a] + i['valor']
+            else:
+                cat[a] = i['valor']
+        print(cat)
+        return cat
+
+    @staticmethod
+    def get_cat_ingresos(userid):
+        cur = RegistroData.get_cat_ingresos(userid)
+        cat = {}
+        for i in cur:
+            a = i['categoria']
+            if i['categoria'] in list(cat):
+                cat[a] = cat[a] + i['valor']
+            else:
+                cat[a] = i['valor']
+        print(cat)
+        return cat
+
+
+   # def sort_by_date(self):
+   #     r = RegistroData()
+   #     r.sort_registros()
+>>>>>>> 58a899e3ec00f99e39b1953497d9fdfa56448bd5

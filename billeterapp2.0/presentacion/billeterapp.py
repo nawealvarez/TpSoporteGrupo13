@@ -6,7 +6,7 @@ from datetime import datetime
 
 from negocio.usuarios import UserLogic
 from entidades.objects import Usuario
-from presentacion.forms import LoginForm, SignupForm, RegistrosForm
+from presentacion.forms import LoginForm, SignupForm, GastoForm, IngresoForm
 from negocio.registros import RegistroLogic
 
 
@@ -25,12 +25,19 @@ def load_user(userid):
 @app.route("/")
 @app.route("/index")
 def index():
-    if current_user.is_authenticated: 
+    if current_user.is_authenticated:
         moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10)
         balance = RegistroLogic.get_balance(current_user.get_id())
+        #graph = pygal.Pie(inner_radius=.40)
+        #graph.title = 'Todos tus registros'
+        #print(current_user.get_id())
+        #for c,v in RegistroLogic.get_categorias(current_user.get_id()).items():
+        #    graph.add(c,v)
+        #graph_data = graph.render_data_uri()
     else: 
         moves = None
         balance = None
+        #graph_data = None
     return render_template("index.html", title="index", moves=moves, balance=balance)
 
 
@@ -52,18 +59,51 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route("/new_register", methods=["GET", "POST"])
+'''@app.route("/new_register", methods=["GET", "POST"])
 def new_register():
     form = RegistrosForm()
     if form.validate_on_submit():
-        registro = {"categoria": form.categoria.data,
+        registro = {"tipo": form.tipo.data,
+                    "categoria": form.categoria.data,
                     "valor": form.valor.data,
                     "descripcion": form.descripcion.data,
-                    "fecha": datetime.utcnow()}
+                    "fecha": datetime.utcnow(),
+                    "userid": current_user.get_id()}
         RegistroLogic.insert_one(registro)
         flash('Registro cargado!')
         return redirect(url_for("new_register"))
-    return render_template("new_register.html", form=form)
+    return render_template("new_register.html", form=form)'''
+
+@app.route("/gastonew", methods=["GET", "POST"])
+def gastonew():
+    form = GastoForm()
+    if form.validate_on_submit():
+        gasto = {"tipo": "gasto",
+                "categoria": form.categoria.data,
+                "valor": form.valor.data,
+                "descripcion": form.descripcion.data,
+                "fecha": datetime.utcnow(),
+                "userid": current_user.get_id()}
+        RegistroLogic.insert_one(gasto)
+        flash('Gasto cargado!')
+        return redirect(url_for("gastonew"))
+    return render_template("gastonew.html", form=form)
+        
+
+@app.route("/ingresonew", methods=["GET", "POST"])
+def ingresonew():
+    form = IngresoForm()
+    if form.validate_on_submit():
+        ingreso = {"tipo": "ingreso",
+                    "categoria": form.categoria.data,
+                    "valor": form.valor.data,
+                    "descripcion": form.descripcion.data,
+                    "fecha": datetime.utcnow(),
+                    "userid": current_user.get_id()}
+        RegistroLogic.insert_one(ingreso)
+        flash('Ingreso cargado!')
+        return redirect(url_for("ingresonew"))
+    return render_template("ingresonew.html", form=form)
 
 @app.context_processor
 def get_all_categories():
@@ -86,14 +126,22 @@ def signup():
 @app.route("/graphs")
 def grapic_example():
     graph = pygal.Pie(inner_radius=.40)
-    graph.title = 'Todos tus registros pillo'
-    graph.add('Comida', 19.5)
-    graph.add('Alquiler', 36.6)
-    graph.add('Ropa', 36.3)
-    graph.add('Bancos', 4.5)
-    graph.add('Salidas', 2.3)
+    graph.title = 'Todos tus registros papu'
+    print(current_user.get_id())
+    for c,v in RegistroLogic.get_tipos(current_user.get_id()).items():
+        graph.add(c,v)
     graph_data = graph.render_data_uri()
-    return render_template("graphs.html", graph_data=graph_data)
+    graph2 = pygal.Pie(inner_radius=.40)
+    graph2.title = 'Distribucion de gastos'
+    for c,v in RegistroLogic.get_cat_gastos(current_user.get_id()).items():
+        graph2.add(c,v)
+    graph_da = graph2.render_data_uri()
+    graph3 = pygal.Pie(inner_radius=.40)
+    graph3.title = 'Distribucion de ingresos'
+    for c,v in RegistroLogic.get_cat_ingresos(current_user.get_id()).items():
+        graph3.add(c,v)
+    graph_dat = graph3.render_data_uri()
+    return render_template("graphs.html", graph_data=graph_data, graph_da=graph_da, graph_dat=graph_dat)
 
 
 @app.errorhandler(404)
