@@ -42,9 +42,9 @@
                             {%if current_user.is_authenticated%}
                             <ul class="navbar-nav bd-navbar-nav flex-row ">
                                 <li><a href="{{url_for('index')}}"><span class="glyphicon glyphicon-user"></span>&nbsp {{current_user.username}}</a></li>
-                                <li><a href="{{url_for('gastonew')}}"> <span class="glyphicon glyphicon-pencil"></span>&nbsp Agregar Gasto</a></li>
-                                <li><a href="{{url_for('ingresonew')}}"> <span class="glyphicon glyphicon-pencil"></span>&nbsp Agregar Ingreso</a></li>
-                                <li><a href="{{url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span>&nbsp Logout</a></li>
+                               <!-- <li><a href="{{url_for('gastonew')}}"> <span class="glyphicon glyphicon-pencil"></span>&nbsp Agregar Gasto</a></li>
+                                <li><a href="{{url_for('ingresonew')}}"> <span class="glyphicon glyphicon-pencil"></span>&nbsp Agregar Ingreso</a></li>-->
+                                <li><a href="{{url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span>&nbsp Logout</a></li> 
                             </ul>
                             {%else%}
                             <ul class="navbar-nav bd-navbar-nav flex-row">
@@ -64,14 +64,15 @@
     <div class="jumbotron">
         {%if current_user.is_authenticated%}
         <div class="container">
-                <h1>Que desea hacer prro?</h1>
+                <h1>Que desea hacer?</h1>
                 <a role="button" class="btn btn-default" href="/graphs"><span class="glyphicon glyphicon-certificate"></span>&nbsp Stadistics</a></button>
+                <a role="button" class="btn btn-default" href="/gastonew"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp Nuevo Gasto</a></button>
+                <a role="button" class="btn btn-default" href="/ingresonew"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp Nuevo Ingreso</a></button>
         </div>
         {%else%}
       <div class="container ">
         <h1>Bienvenido a "A ver si ahorra"!</h1>
-        <p>Esta es una app que le permite gestionar sus ingresos y gastos, ayudandolo a no gastar tanto en pelotudeces.
-            Tenga cuidado que el dolar sube mas que Jordi Alba.
+        <p>Esta es una app que le permite gestionar sus ingresos y gastos, ayudandolo a tener un control diario.
         </p>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
       </div>
