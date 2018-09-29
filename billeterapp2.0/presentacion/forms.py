@@ -1,9 +1,10 @@
 from flask_wtf import Form
-from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField, FloatField, DateTimeField
+from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField, FloatField, DateField, SelectField
 from flask_wtf.html5 import URLField
 from wtforms.validators import DataRequired, url, Length, Regexp, Email, EqualTo, ValidationError
 
 from negocio.usuarios import UserLogic
+from negocio.registros import RegistroLogic
 from util.validations import UserValidations
 
 class LoginForm(Form):
@@ -12,11 +13,11 @@ class LoginForm(Form):
     remember_me = BooleanField("Mantenerme logeado: ")
     submit = SubmitField("Iniciar sesion")
 
-# class RegistrosForm(Form):
-#    tipo = StringField("Tipo del registro (gasto o ingreso): ", validators=[DataRequired()])
-#    categoria = StringField("Categoria del registro: ", validators=[DataRequired()])
-#    valor = FloatField("Valor del registro: ", validators=[DataRequired()])
-#    descripcion = StringField("Descripcion(opcional): ")
+class RegistrosForm(Form):
+   tipo = StringField("Tipo del registro (gasto o ingreso): ", validators=[DataRequired()])
+   categoria = SelectField("Categoria del registro: ", choices=RegistroLogic.get_all_categories() ,validators=[DataRequired()])
+   valor = FloatField("Valor del registro: ", validators=[DataRequired()])
+   descripcion = StringField("Descripcion(opcional): ")
 
 class IngresoForm(Form):
     categoria = StringField("Categoria del ingreso: ", validators=[DataRequired()])

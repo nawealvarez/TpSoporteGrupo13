@@ -6,7 +6,7 @@ from datetime import datetime
 
 from negocio.usuarios import UserLogic
 from entidades.objects import Usuario
-from presentacion.forms import LoginForm, SignupForm, GastoForm, IngresoForm
+from presentacion.forms import LoginForm, SignupForm, GastoForm, IngresoForm, RegistrosForm
 from negocio.registros import RegistroLogic
 
 
@@ -59,7 +59,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-'''@app.route("/new_register", methods=["GET", "POST"])
+@app.route("/new_register", methods=["GET", "POST"])
 def new_register():
     form = RegistrosForm()
     if form.validate_on_submit():
@@ -72,7 +72,7 @@ def new_register():
         RegistroLogic.insert_one(registro)
         flash('Registro cargado!')
         return redirect(url_for("new_register"))
-    return render_template("new_register.html", form=form)'''
+    return render_template("new_register.html", form=form)
 
 @app.route("/gastonew", methods=["GET", "POST"])
 def gastonew():
@@ -106,8 +106,11 @@ def ingresonew():
     return render_template("ingresonew.html", form=form)
 
 @app.context_processor
-def get_all_categories():
-    return list(RegistroLogic.get_all_categories())
+def util_processor():
+    def get_all_categories():
+        return RegistroLogic.get_all_categories()
+        #return {"nombre": "juan"}
+    return dict(get_all_categories=get_all_categories)
 
 
 @app.route("/signup", methods=["GET", "POST"])
