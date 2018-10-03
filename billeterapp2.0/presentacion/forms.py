@@ -46,4 +46,4 @@ class SignupForm(Form):
     
     def validate_username(self, username_field):
         if UserValidations.is_username_valid(username_field.data):
-            raise ValidationError("Usuario existente.")
+            raise ValidationError("El usuario ya existe.")
