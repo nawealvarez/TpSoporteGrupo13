@@ -1,7 +1,7 @@
 from flask_wtf import Form
-from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField, FloatField, DateField, SelectField
+from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField, FloatField, DateField, SelectField, SelectMultipleField
 from flask_wtf.html5 import URLField
-from wtforms.validators import DataRequired, url, Length, Regexp, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, url, Length, Regexp, Email, EqualTo, ValidationError, NumberRange
 
 from negocio.usuarios import UserLogic
 from negocio.registros import RegistroLogic
@@ -13,20 +13,14 @@ class LoginForm(Form):
     remember_me = BooleanField("Mantenerme logeado: ")
     submit = SubmitField("Iniciar sesion")
 
-class RegistrosForm(Form):
-   tipo = StringField("Tipo del registro (gasto o ingreso): ", validators=[DataRequired()])
-   categoria = SelectField("Categoria del registro: ", choices=RegistroLogic.get_all_categories() ,validators=[DataRequired()])
-   valor = FloatField("Valor del registro: ", validators=[DataRequired()])
-   descripcion = StringField("Descripcion(opcional): ")
-
 class IngresoForm(Form):
-    categoria = StringField("Categoria del ingreso: ", validators=[DataRequired()])
-    valor = FloatField("Valor del ingreso: ", validators=[DataRequired()])
+    categoria = StringField("Categoria del ingreso: ",validators=[DataRequired()])
+    valor = FloatField("Valor del ingreso: ", validators=[DataRequired(), NumberRange(0, None, "El valor ingresado debe ser mayor a cero.")])
     descripcion = StringField("Descripcion(opcional): ")
 
 class GastoForm(Form):
     categoria = StringField("Categoria del gasto: ", validators=[DataRequired()])
-    valor = FloatField("Valor del gasto: ", validators=[DataRequired()])
+    valor = FloatField("Valor del gasto: ", validators=[DataRequired(), NumberRange(0, None, "El valor ingresado debe ser mayor a cero.")])
     descripcion = StringField("Descripcion(opcional): ")
 
 class SignupForm(Form):

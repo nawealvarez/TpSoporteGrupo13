@@ -33,7 +33,6 @@ class RegistroData():
     def get_all_categories():
         db = Connection.connect()
         return db.registros.find({}, {"categoria": 1}).distinct("categoria")
-        return db.registros.find({"userid": userid}, {"tipo": 1, "valor": 1})
     
     @staticmethod
     def get_categorias(userid, tipo):

@@ -25,18 +25,6 @@ class RegistroLogic():
             elif m["tipo"] == "ingreso":
                 count = count + float(format(m["valor"], ".2f"))
         return count
-    
-    @staticmethod
-    def get_all_categories():
-        cats = RegistroData.get_all_categories()
-        if cats:
-            dic = {}
-            index = 0   
-            for c in cats:
-                dic[index] = c
-                index+=1
-        return dic
-        
 
     @staticmethod
     def get_tipos(userid):
