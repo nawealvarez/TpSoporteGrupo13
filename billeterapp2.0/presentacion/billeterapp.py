@@ -6,7 +6,7 @@ from datetime import datetime
 
 from negocio.usuarios import UserLogic
 from entidades.objects import Usuario
-from presentacion.forms import LoginForm, SignupForm, GastoForm, IngresoForm
+from presentacion.forms import LoginForm, SignupForm, GastoForm, IngresoForm, SueldoForm
 from negocio.registros import RegistroLogic
 
 
@@ -27,10 +27,12 @@ def index():
     if current_user.is_authenticated:
         moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10)
         balance = RegistroLogic.get_balance(current_user.get_id())
+        sueldo = RegistroLogic.get_sueldo(current_user.get_id())
     else: 
         moves = None
         balance = None
-    return render_template("index.html", title="index", moves=moves, balance=balance)
+        sueldo = None
+    return render_template("index.html", title="index", moves=moves, balance=balance, sueldo=sueldo)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -62,10 +64,25 @@ def gastonew():
                 "fecha": datetime.utcnow(),
                 "userid": current_user.get_id()}
         RegistroLogic.insert_one(gasto)
-        flash('Su gasto ha sido cargado con extito!')
+        flash('Su gasto ha sido cargado con exito!')
         return redirect(url_for("index"))
     return render_template("gastonew.html", form=form)
         
+@app.route("/sueldo", methods=["GET", "POST"])
+@login_required
+def sueldo():
+    form = SueldoForm()
+    if form.validate_on_submit():
+        sueldo = {"tipo": "ingreso",
+                "categoria": "sueldo",
+                "valor": form.valor.data,
+                "fecha": datetime.utcnow(),
+                "userid": current_user.get_id()}
+        RegistroLogic.insert_one(sueldo)
+        flash('Su sueldo ha sido cargado con exito')
+        return redirect(url_for("index"))
+    return render_template("sueldo.html", form=form)
+
 
 @app.route("/ingresonew", methods=["GET", "POST"])
 @login_required

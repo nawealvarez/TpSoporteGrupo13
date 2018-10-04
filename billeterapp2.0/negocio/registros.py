@@ -25,6 +25,11 @@ class RegistroLogic():
             elif m["tipo"] == "ingreso":
                 count = count + float(format(m["valor"], ".2f"))
         return count
+    
+    @staticmethod
+    def get_sueldo(userid):
+        sueldo = RegistroData.get_sueldo(userid)
+        return sueldo
 
     @staticmethod
     def get_tipos(userid):
