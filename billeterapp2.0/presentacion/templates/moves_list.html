@@ -25,6 +25,7 @@
                             {%endfor%}
                         </td>
                         <td>{{move.descripcion}}</td>
+                        <td><a href="{{url_for('edit', registro_id=move._id)}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
                     </tr>
                     {%endfor%}
                 </tbody>

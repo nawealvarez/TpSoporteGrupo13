@@ -7,6 +7,14 @@ class RegistroLogic():
         RegistroData.create_registro(registro)
 
     @staticmethod
+    def get_by_id(registro_id):
+        return RegistroData.get_by_id(registro_id)
+    
+    @staticmethod
+    def update_registro(registro_id, registro):
+        RegistroData.update_registro(registro_id, registro)
+
+    @staticmethod
     def find_by_categoria(categoria):
         return RegistroData.find_by_categoria(categoria)
 

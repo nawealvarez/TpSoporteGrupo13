@@ -1,5 +1,7 @@
 import pymongo
 import datetime
+from bson.objectid import ObjectId, InvalidId
+
 from datos.connection import Connection
 
 class RegistroData():
@@ -8,6 +10,20 @@ class RegistroData():
     def create_registro(registro):
         db = Connection.connect()
         db.registros.insert_one(registro)
+
+    @staticmethod
+    def get_by_id(registro_id):
+        db = Connection.connect()
+        try:
+            return db.registros.find_one({"_id": ObjectId(registro_id)})
+        except InvalidId:
+            return None
+        
+
+    @staticmethod
+    def update_registro(registro_id, registro):
+        db = Connection.connect()
+        db.registros.update_one({"_id": ObjectId(registro_id)}, {"$set": registro}, upsert=False)
 
     @staticmethod
     def find_by_categoria(categoria):

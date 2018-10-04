@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, redirect, request, flash, jsonify
+from flask import Flask, render_template, url_for, redirect, request, flash, abort
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
 import pygal
 from pygal.style import Style
 from datetime import datetime
+from collections import namedtuple
 
 from negocio.usuarios import UserLogic
 from entidades.objects import Usuario
@@ -66,7 +67,7 @@ def gastonew():
         RegistroLogic.insert_one(gasto)
         flash('Su gasto ha sido cargado con exito!')
         return redirect(url_for("index"))
-    return render_template("gastonew.html", form=form)
+    return render_template("registros_form.html", form=form, type="Gasto", title="Registrar gasto")
         
 @app.route("/sueldo", methods=["GET", "POST"])
 @login_required
@@ -98,7 +99,29 @@ def ingresonew():
         RegistroLogic.insert_one(ingreso)
         flash('Si ingreso ha sido cargado con exito!')
         return redirect(url_for("index"))
-    return render_template("ingresonew.html", form=form)
+    return render_template("registros_form.html", form=form, type="ingreso", title="Registrar ingreso")
+
+@app.route("/edit/<string:registro_id>", methods=["GET", "POST"])
+@login_required
+def edit(registro_id):
+    registro = RegistroLogic.get_by_id(registro_id)
+    if not registro:
+        abort(404)
+    if current_user.get_id() != registro["userid"]:
+        abort(401)
+    registro["id"] = registro.pop("_id")
+    registro["categoria"] = ", ".join(registro["categoria"])
+    d_reg = namedtuple("Registro", registro.keys(), verbose=True)(*registro.values())
+    form = GastoForm(obj=d_reg) if registro["tipo"] == "gasto" else IngresoForm(obj=d_reg)
+    if form.validate_on_submit():
+        reg = {"categoria": form.categoria.data.split(","),
+                    "valor": form.valor.data,
+                    "descripcion": form.descripcion.data}
+        RegistroLogic.update_registro(registro_id, reg)
+        flash("Su {} ha sido modificado correctamente!".format(registro["tipo"]))
+        return redirect(url_for("index"))
+    return render_template("registros_form.html", form=form, title="Editar", tipo="editar")
+
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
