@@ -88,12 +88,12 @@ def ingresonew():
 @login_required
 def edit(registro_id):
     registro = RegistroLogic.get_by_id(registro_id)
-    registro["id"] = registro.pop("_id")
-    registro["categoria"] = ", ".join(registro["categoria"])
     if not registro:
         abort(404)
     if current_user.get_id() != registro["userid"]:
         abort(401)
+    registro["id"] = registro.pop("_id")
+    registro["categoria"] = ", ".join(registro["categoria"])
     d_reg = namedtuple("Registro", registro.keys(), verbose=True)(*registro.values())
     form = GastoForm(obj=d_reg) if registro["tipo"] == "gasto" else IngresoForm(obj=d_reg)
     if form.validate_on_submit():

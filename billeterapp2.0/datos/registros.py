@@ -1,6 +1,6 @@
 import pymongo
 import datetime
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId, InvalidId
 
 from datos.connection import Connection
 
@@ -14,8 +14,11 @@ class RegistroData():
     @staticmethod
     def get_by_id(registro_id):
         db = Connection.connect()
-        reg = db.registros.find_one({"_id": ObjectId(registro_id)})
-        return reg
+        try:
+            return db.registros.find_one({"_id": ObjectId(registro_id)})
+        except InvalidId:
+            return None
+        
 
     @staticmethod
     def update_registro(registro_id, registro):
