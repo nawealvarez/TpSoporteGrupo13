@@ -2,21 +2,20 @@
 {%from "form_macros.html" import render_field%}
 
 {%block title%}
-A Ver Si Ahorra -- Ingreso Input
+A Ver Si Ahorra -- {{title}}
 {% endblock %}
-
 
 {%block content%}
     <section>
         <div>
-            <h1 class="justify-content-center">Agregue su ingreso</h1>
+            <h1 class="justify-content-center">{{title}}</h1>
             <form action="" method="post" class="form-group">
                 {{form.hidden_tag()}}
                 <table>
-                    {{render_field(form.categoria, size=50, class="form-control", id="categorias")}}
+                    {{render_field(form.categoria, size=50, class="form-control")}}
                     {{render_field(form.valor, size=50, class="form-control")}}
                     {{render_field(form.descripcion, size=50, class="form-control")}}
-                    <button type="submit" class="btn btn-primary">Agregar Ingreso</button>
+                    <button type="submit" class="btn btn-primary">Agregar {{type}}</button>
                 </table>
             </form>
         </div>
