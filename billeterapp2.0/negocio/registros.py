@@ -53,19 +53,13 @@ class RegistroLogic():
         return cat
 
     @staticmethod
-    def get_categorias(userid, tipo):
-        cur = RegistroData.get_categorias(userid, tipo)
-        cat = {}
-        for i in cur:
-            a = i['categoria']
-            if i['categoria'] in list(cat):
-                cat[a] = cat[a] + i['valor']
-            else:
-                cat[a] = i['valor']
-        print(cat)
-        return cat
-
-
-   # def sort_by_date(self):
-   #     r = RegistroData()
-   #     r.sort_registros()
+    def get_cats(userid, tipo):
+        registros = RegistroData.get_categorias(userid, tipo)
+        c = {}
+        for r in registros:
+            for categoria in r["categoria"]:
+                if categoria in c:
+                    c[categoria] += r["valor"]
+                else: 
+                    c[categoria] = r["valor"]
+        return c
