@@ -49,10 +49,11 @@ class RegistroData():
     def get_sueldo(userid):
         db = Connection.connect()
         try:
-            max_fecha = db.registros.find_one({}, {"_id": userid, "valor": 1}, sort=[("fecha", pymongo.DESCENDING)])["fecha"]
+            max_fecha = db.registros.find_one({}, {"_id": userid, "valor": 1}, sort=[("fecha", pymongo.DESCENDING)])["valor"]
         except:
             max_fecha = None
-        finally: return max_fecha
+        finally:
+            return max_fecha
 
     @staticmethod
     def get_all_categories():
