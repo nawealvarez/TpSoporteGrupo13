@@ -130,12 +130,12 @@ def grapic_example():
     graph_data = graph.render_data_uri()
     graph2 = pygal.Pie(inner_radius=.40, style=custom_style)
     graph2.title = 'Distribucion de gastos'
-    for c,v in RegistroLogic.get_categorias(current_user.get_id(), 'gasto').items():
+    for c,v in RegistroLogic.get_cats(current_user.get_id(), 'gasto').items():
         graph2.add(c,v)
     graph_da = graph2.render_data_uri()
     graph3 = pygal.Pie(inner_radius=.40, style=custom_style)
     graph3.title = 'Distribucion de ingresos'
-    for c,v in RegistroLogic.get_categorias(current_user.get_id(), 'ingreso').items():
+    for c,v in RegistroLogic.get_cats(current_user.get_id(), 'ingreso').items():
         graph3.add(c,v)
     graph_dat = graph3.render_data_uri()
     return render_template("graphs.html", graph_data=graph_data, graph_da=graph_da, graph_dat=graph_dat)
