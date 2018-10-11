@@ -36,8 +36,14 @@ class RegistroLogic():
     
     @staticmethod
     def get_sueldo(userid):
-        sueldo = RegistroData.get_sueldo(userid)
-        return sueldo
+        try:
+            sueldo = RegistroData.get_sueldo(userid)
+            if sueldo is not None:
+                return sueldo["valor"]
+            else:
+                return "No hay sueldos cargados"
+        except ValueError as e:
+            print("Error en la conversión de tipo de dato: {0}", format(e))
 
     @staticmethod
     def get_tipos(userid):

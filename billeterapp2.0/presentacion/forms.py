@@ -16,7 +16,6 @@ class LoginForm(Form):
 class SueldoForm(Form):
     valor = FloatField("Valor del sueldo", validators=[DataRequired(), NumberRange(0, None, "El valor ingresado debe ser mayor a cero.")])
 
-
 class IngresoForm(Form):
     categoria = StringField("Categoria del ingreso: ",validators=[DataRequired()])
     valor = FloatField("Valor del ingreso: ", validators=[DataRequired(), NumberRange(0, None, "El valor ingresado debe ser mayor a cero.")])

@@ -48,12 +48,7 @@ class RegistroData():
     @staticmethod
     def get_sueldo(userid):
         db = Connection.connect()
-        try:
-            max_fecha = db.registros.find_one({}, {"_id": userid, "valor": 1}, sort=[("fecha", pymongo.DESCENDING)])["valor"]
-        except:
-            max_fecha = None
-        finally:
-            return max_fecha
+        return db.registros.find_one({"userid": userid, "categoria": ["sueldo"]}, sort=[("fecha", pymongo.DESCENDING)])
 
     @staticmethod
     def get_all_categories():

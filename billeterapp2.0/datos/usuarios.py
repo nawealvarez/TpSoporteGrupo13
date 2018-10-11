@@ -42,7 +42,7 @@ class UserData():
         except:
             max_id = 0
         finally: return max_id + 1
-    
+
     @staticmethod
     def get_user_password(username):
         return UserData.find_by_username(username)["password"]

@@ -86,6 +86,24 @@ def ingresonew():
         return redirect(url_for("index"))
     return render_template("registros_form.html", form=form, type="ingreso", title="Registrar ingreso")
 
+
+@app.route("/sueldonew", methods=["GET", "POST"])
+@login_required
+def sueldonew():
+    form = SueldoForm()
+    if form.validate_on_submit():
+        sueldo ={   "tipo": "ingreso",
+                    "categoria": ["sueldo"],
+                    "valor": form.valor.data,
+                    "descripcion": "Ingreso de Sueldo",
+                    "fecha": datetime.utcnow(),
+                    "userid": current_user.get_id()}
+        RegistroLogic.insert_one(sueldo)
+        flash('Su sueldo ha sido cargado con exito!')
+        return redirect(url_for("index"))
+    return render_template("sueldo_form.html", form=form, type="sueldo", title="Registrar último sueldo")
+
+
 @app.route("/edit/<string:registro_id>", methods=["GET", "POST"])
 @login_required
 def edit(registro_id):
@@ -106,7 +124,6 @@ def edit(registro_id):
         flash("Su {} ha sido modificado correctamente!".format(registro["tipo"]))
         return redirect(url_for("index"))
     return render_template("registros_form.html", form=form, title="Editar", tipo="editar")
-
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
