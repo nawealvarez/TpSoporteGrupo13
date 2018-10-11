@@ -14,15 +14,6 @@ class UserData():
         db = Connection.connect()
         return db.usuarios.find_one({"username": username})
 
-    @staticmethod
-    def delete_user_by_username(username):
-        db = Connection.connect()
-        db.usuarios.delete_one({"username": username})
-
-    @staticmethod
-    def find_by_prop(key, value):
-        db = Connection.connect()
-        return db.usuarios.find({key: value})
     
     @staticmethod
     def check_password(pwhash, username):
@@ -33,6 +24,16 @@ class UserData():
     def find_by_id(userid):
         db = Connection.connect()
         return db.usuarios.find_one({"_id": userid})
+
+    @staticmethod
+    def delete_user_by_username(username):
+        db = Connection.connect()
+        db.usuarios.delete_one({"username": username})
+
+    @staticmethod
+    def find_by_prop(key, value):
+        db = Connection.connect()
+        return db.usuarios.find({key: value})
 
     @staticmethod
     def __generate_id():
