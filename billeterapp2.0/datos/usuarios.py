@@ -26,6 +26,16 @@ class UserData():
         return db.usuarios.find_one({"_id": userid})
 
     @staticmethod
+    def delete_user_by_username(username):
+        db = Connection.connect()
+        db.usuarios.delete_one({"username": username})
+
+    @staticmethod
+    def find_by_prop(key, value):
+        db = Connection.connect()
+        return db.usuarios.find({key: value})
+
+    @staticmethod
     def __generate_id():
         db = Connection.connect()
         try:
