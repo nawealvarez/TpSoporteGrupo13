@@ -12,7 +12,7 @@ A Ver Si Ahorra -- {{title}}
             <form action="" method="post" class="form-group">
                 {{form.hidden_tag()}}
                 <table>
-                    {{render_field(form.valor, size=50, class="form-control")}}
+                    {{render_field(form.valor, autofocus="autofocus", autocomplete="off", placeholder="Último sueldo cobrado", size=50, class="form-control")}}
                     <button type="submit" class="btn btn-primary">Agregar {{type}}</button>
                 </table>
             </form>

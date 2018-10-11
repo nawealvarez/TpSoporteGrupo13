@@ -69,3 +69,13 @@ class RegistroLogic():
                 else: 
                     c[categoria] = r["valor"]
         return c
+
+    @staticmethod
+    def get_cats_names(userid, tipo):
+        registros = RegistroData.get_categorias(userid, tipo)
+        cat_nombres = []
+        for r in registros:
+            for categoria in r["categoria"]:
+                if categoria not in cat_nombres:
+                    cat_nombres.append(categoria)
+        return cat_nombres

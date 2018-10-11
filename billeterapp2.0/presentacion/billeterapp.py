@@ -73,6 +73,8 @@ def gastonew():
 @app.route("/ingresonew", methods=["GET", "POST"])
 @login_required
 def ingresonew():
+    userid=current_user.get_id()
+    lista_cats = RegistroLogic.get_cats_names(userid, "ingreso")
     form = IngresoForm()
     if form.validate_on_submit():
         ingreso = {"tipo": "ingreso",
@@ -80,11 +82,11 @@ def ingresonew():
                     "valor": form.valor.data,
                     "descripcion": form.descripcion.data,
                     "fecha": datetime.utcnow(),
-                    "userid": current_user.get_id()}
+                    "userid": userid}
         RegistroLogic.insert_one(ingreso)
         flash('Si ingreso ha sido cargado con exito!')
         return redirect(url_for("index"))
-    return render_template("registros_form.html", form=form, type="ingreso", title="Registrar ingreso")
+    return render_template("registros_form.html", form=form, type="ingreso", datalist=lista_cats, title="Registrar ingreso")
 
 
 @app.route("/sueldonew", methods=["GET", "POST"])

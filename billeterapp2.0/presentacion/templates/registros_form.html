@@ -12,12 +12,18 @@ A Ver Si Ahorra -- {{title}}
             <form action="" method="post" class="form-group">
                 {{form.hidden_tag()}}
                 <table>
-                    {{render_field(form.categoria, size=50, class="form-control")}}
-                    {{render_field(form.valor, size=50, class="form-control")}}
-                    {{render_field(form.descripcion, size=50, class="form-control")}}
+                    {{render_field(form.categoria, list="cat_datalist", autocomplete="off", autofocus="autofocus", placeholder="Seleccione o ingrese una nueva categoria", size=50, class="form-control")}}
+                    {{render_field(form.valor, autocomplete="off", pattern="[0-9]*.?[0-9]*", title="Ingrese sólo números", placeholder="Monto del ingreso a cargar", size=50, class="form-control")}}
+                    {{render_field(form.descripcion, placeholder="Información adicional del ingreso", size=50, class="form-control")}}
                     <button type="submit" class="btn btn-primary">Agregar {{type}}</button>
                 </table>
             </form>
         </div>
+
+        <datalist id="cat_datalist">
+            {% for c in datalist %}
+            <option value={{c}}>
+            {% endfor %}
+        </datalist>
     </section>
-{%endblock%}s
+{%endblock%}
