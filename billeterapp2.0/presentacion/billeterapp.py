@@ -28,12 +28,12 @@ def index():
     if current_user.is_authenticated:
         moves = RegistroLogic.get_lasts_registers(current_user.get_id(), 10)
         balance = RegistroLogic.get_balance(current_user.get_id())
-        sueldo = RegistroLogic.get_sueldo(current_user.get_id())
+        #sueldo = RegistroLogic.get_sueldo(current_user.get_id())
     else: 
         moves = None
         balance = None
-        sueldo = None
-    return render_template("index.html", title="index", moves=moves, balance=balance, sueldo=sueldo)
+        #sueldo = None
+    return render_template("index.html", title="index", moves=moves, balance=balance)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
