@@ -49,11 +49,6 @@ class RegistroData():
     def get_sueldo(userid):
         db = Connection.connect()
         return db.registros.find_one({"userid": userid, "categoria": ["sueldo"]}, sort=[("fecha", pymongo.DESCENDING)])
-
-    @staticmethod
-    def get_all_categories():
-        db = Connection.connect()
-        return db.registros.find({}, {"categoria": 1}).distinct("categoria")
     
     @staticmethod
     def get_categorias(userid, tipo):
